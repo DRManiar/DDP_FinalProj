@@ -1,4 +1,14 @@
-# DDP_FinalProj
+---
+title: "Documentation for the App"
+author: "DRManiar"
+date: "10 October 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ## Introduction
 

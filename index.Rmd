@@ -1,0 +1,77 @@
+---
+title: "Predict Fertility using the swiss Data"
+author: "DRManiar"
+date: "10 October 2020"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+- This `shiny` app is a simple demonstration of multivariate linear regression using `lm` function.
+- The app uses `swiss` data.
+
+```{r}
+library(datasets)
+data(swiss)
+```
+
+```{r echo=TRUE}
+head(swiss)
+```
+
+## Output Template
+
+```{r}
+modFit <- lm(Fertility ~ Agriculture, data=swiss)
+mse <- sqrt(sum(modFit$residual^2)/nrow(swiss))
+xp <- 1:nrow(swiss)
+plot(xp, swiss$Fertility,
+     xlab = "Index",
+     ylab = "Fertility",
+     pch=1,
+     col="blue")
+points(xp,
+       modFit$fitted.values,
+       pch=19,
+       col="red")
+legend("topright",
+       pch = c(1,19),
+       col = c("blue", "red"),
+       legend = c("Data", "Prediction"))
+text(x=mean(c(max(xp),min(xp))),
+     y=40,
+     paste("MSRE = ", round(mse,2)))
+summary(modFit)$coef
+```
+
+
+## Inputs & Outputs
+
+There are two inputs desired from the user:
+
+- Predictor variables, and
+- X-axis Variable for plotting.
+
+Based upon the user's input, the following output is displayed:
+
+- A `scatter` plot showing:
+  + Fertility data plotted against selected x-axis variable,
+  + fitted.values plotted against selected x-axis variable, and
+  + MSRE of the predictions.
+- A table showing summary of linear fit model coefficients.
+
+## How to Use the App
+
+Follow the steps below:
+
+- To generate a `new prediction`:
+  + Select predictor variables using the check boxes,
+  + Select the predictor for plotting, and
+  + Hit **Submit** button to update the plot and summary table.
+- To `reset` the app, click *"circular arrow"* towards the upper left corner of the app.
+- To read this documentation, click on the `Documentation` tab.
+- To view the predictions, click on the `Prediction` tab.
